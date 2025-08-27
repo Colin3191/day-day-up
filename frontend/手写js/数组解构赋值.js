@@ -10,10 +10,17 @@ const obj = {
   b: 4,
 };
 
+// obj[Symbol.iterator] = function* () {
+//   yield 3;
+//   yield 4;
+// };
+
 obj[Symbol.iterator] = function () {
+  let index = 0;
+  const keys = Object.keys(obj); // ['a', 'b']
   return {
     next: () => {
-      return { value: 3, done: false };
+      return { value: obj[keys[index++]], done: index > keys.length }; // { value: 3, done: false }
     },
   };
 };
